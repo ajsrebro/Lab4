@@ -1,5 +1,7 @@
 const Url = "http://18.220.85.60/api/"; //this constant holds the base url for the Microservice API, you will append the API route to this value
 
+
+
 function fetchProductList() {
 
     jsonObj = [];
@@ -165,8 +167,25 @@ function fetchComments($id) {
 function setComment($id) {
 
     //TODO complete implementation using the product id
-    alert("app.js/setComment() not implemented")
 
+    comment=$('#message-text').val();
+    score=$('#score').val(); 
+    $.ajax({
+        url: Url+'SetComment',
+        type: 'post',
+        dataType: 'json',
+        data: JSON.stringify({"product_id":$id, "comment":comment,"score":score}), //the json is defined here using javascript's dictionary syntax.
+        contentType: 'text/plain',
+
+        success: function (data) { //on success
+            //reactive HTML that depends on the contents of the returned data
+            alert("Comment posted succesfully");
+        },
+        error: function (data) { //on error, throw an alert
+            alert("Error while fetching data.");
+        }
+    });
+    
     //HINT
     //Take note of how the Ajax call in app.js/fetchComments() posts a GET request to corresponding API endpoint.
     //Look at the Microservice API Documentation and find out the appripriate type of request for this action.
@@ -176,7 +195,20 @@ function setComment($id) {
 function addToCart($id) {
 
     //TODO complete implementation using the product id
-    alert("app.js/addToCart() not implemented")
+    email=$('#email').val();
+    $.ajax({
+        url: Url + 'AddToCart',
+        type: 'post',
+        dataType: 'json',
+        data: JSON.stringify({"product_id":$id, "email": email}), //the json is defined here using javascript's dictionary syntax.
+        contentType: 'text/plain',
+        success: function (data) {
+            alert("Added to cart succesfully")
+        },
+        error: function (data) {
+            alert("Error while fetching data.");
+        }
+    });
 
 
 }
