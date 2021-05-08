@@ -21,6 +21,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="wishlist.html">Wishlist <span class="sr-only">(current)</span></a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -40,7 +43,10 @@
                 <div class="row border-top border-bottom" id="cart-list">
 
                 </div>
-
+                <div class>
+                    <input type="coupon" class="form-control" id="coupon" placeholder="Enter coupon code">
+                    <button id="couoponButton" onclick="applyCoupon()" class="btn">Add Coupon</button>
+                </div>
                 <div class="back-to-shop"><a href="./index.html">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
             </div>
             <div class="col-md-4 summary">
@@ -53,9 +59,18 @@
                     <div id="item-total" class="col text-right"></div>
                 </div>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                    <div class="col">TOTAL PRICE</div>
+                    <div class="col">ORIGINAL TOTAL PRICE</div>
                     <div id="item-price" class="col text-right"></div>
-                </div> <button id="checkout" onclick="checkOut()" class="btn">CHECKOUT</button>
+                </div> 
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL DISCOUNT</div>
+                    <div id="item-discount" class="col text-right"></div>
+                </div>
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col">TOTAL PRICE AFTER DISCOUNT</div>
+                    <div id="item-priceDiscount" class="col text-right"></div>
+                </div>
+                <button id="checkout" onclick="checkOut()" class="btn">CHECKOUT</button>
             </div>
         </div>
     </div>

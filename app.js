@@ -47,7 +47,9 @@ function fetchProductList() {
                     '                    <button class="btn btn-info float-right btn-sm" onclick="fetchOneProduct('+item['id']+')">Detail</button>\n' +
                     '                </div>\n' +
                     '                <div class="card-footer">\n' +
-                    '                    <button class="btn btn-info float-right btn-sm" onclick="addToCart('+item['id']+')">Add to Cart</button>\n' +
+                    '                    <small>Add to ...</small>\n' +
+                    '                    <button style="margin-left:5px;" class="btn btn-info float-right btn-sm" onclick="addToCart('+item['id']+')">Cart</button>' + 
+                                        '<button class="btn btn-info float-right btn-sm" onclick="addToWishlist('+item['id']+')">Wishlist</button>\n' +
                     '                </div>\n' +
                     '            </div>\n' +
                     '        </div>';
@@ -125,7 +127,7 @@ function fetchComments($id) {
         contentType: 'text/plain',
 
         success: function (data) { //on success
-            //reactive HTML that depends on the contents od the returned data
+            //reactive HTML that depends on the contents of the returned data
             comment='';
             comment='<div class="panel panel-default" style="width:800px">\n' +
                 '            <div class="panel-heading">\n' +
@@ -195,7 +197,10 @@ function setComment($id) {
 function addToCart($id) {
 
     //TODO complete implementation using the product id
-    email=$('#email').val();
+
+    if(getEmail()!='') {
+    email=getEmail();
+    $id
     $.ajax({
         url: Url + 'AddToCart',
         type: 'post',
@@ -203,28 +208,104 @@ function addToCart($id) {
         data: JSON.stringify({"product_id":$id, "email": email}), //the json is defined here using javascript's dictionary syntax.
         contentType: 'text/plain',
         success: function (data) {
-            alert("Added to cart succesfully")
+            alert("Added to cart succesfully");
         },
         error: function (data) {
             alert("Error while fetching data.");
         }
     });
+    } else {
+        alert("Please enter your email at top of page."); //alert user since email is empty
+    }
 
+}
+
+function addToWishlist($id) {
+
+    //TODO complete implementation using the product id
+
+    if(getEmail()!='') {
+    email=getEmail()+2;
+    $.ajax({
+        url: Url + 'AddToCart',
+        type: 'post',
+        dataType: 'json',
+        data: JSON.stringify({"product_id":$id, "email": email}), //the json is defined here using javascript's dictionary syntax.
+        contentType: 'text/plain',
+        success: function (data) {
+            alert("Added to wishlist succesfully")
+        },
+        error: function (data) {
+            alert("Error while fetching data.");
+        }
+    });
+} else {
+    alert("Please enter your email at top of page."); //alert user since email is empty
+}
 
 }
 
 function toShoppingCart(){
+if (sessionStorage.getItem('email')=='') {
     let email =$.trim($('#email').val()); //gets the user's email
 
     //email validation
 
-    if( email !='' ) {
+    if(email !='' ) {
         sessionStorage.setItem('email', email); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
         window.location.href = './cart.html'; //redirect to the shopping cart page
     } else {
         alert("Please enter your email at top of page."); //alert user since email is empty
     }
+} else {
+    window.location.href = './cart.html'; //redirect to the shopping cart page    
 }
+}
+
+function toWishlist(){
+    if (sessionStorage.getItem('email')=='') {
+    let email =$.trim($('#email').val()); //gets the user's email
+
+    //email validation
+
+    if(email !='' ) {
+        sessionStorage.setItem('email', email); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
+        window.location.href = './wishlist.html'; //redirect to the shopping cart page
+    } else {
+        alert("Please enter your email at top of page."); //alert user since email is empty
+    }
+} else {
+    window.location.href = './wishlist.html'; //redirect to the shopping cart page    
+}
+}
+
+function resetEmail(){
+    alert(sessionStorage.getItem('email'));
+    sessionStorage.setItem('email', '');
+    alert(sessionStorage.getItem('email'));
+    email='';
+}  
+
+function getEmail(){
+        return sessionStorage.getItem('email'); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
+}
+
+function displayEmail(){
+    alert (sessionStorage.getItem('email')); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
+}
+
+function saveEmail(){
+
+    let email =$.trim($('#email').val());
+        
+    if( email !='') {
+        sessionStorage.setItem('email', email); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
+    } else {
+        alert("Please enter your email at top of page."); //alert user since email is empty
+    }
+    return email;
+}
+
 
 $('#exampleModal').on('show.bs.modal', function (event) {
     $('#ajaxForm').trigger("reset");
