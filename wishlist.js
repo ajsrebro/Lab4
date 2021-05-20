@@ -52,7 +52,6 @@ function getWishlist($emailWishlist) {
 
 function deleteItem($id) {
 
-    //TODO complete implementation using the product id
     $.ajax({
         url: Url + 'Cart/' + $id,
         type: 'delete',

@@ -168,8 +168,6 @@ function fetchComments($id) {
 
 function setComment($id) {
 
-    //TODO complete implementation using the product id
-
     comment=$('#message-text').val();
     score=$('#score').val(); 
     $.ajax({
@@ -188,15 +186,10 @@ function setComment($id) {
         }
     });
     
-    //HINT
-    //Take note of how the Ajax call in app.js/fetchComments() posts a GET request to corresponding API endpoint.
-    //Look at the Microservice API Documentation and find out the appripriate type of request for this action.
 
 }
 
 function addToCart($id) {
-
-    //TODO complete implementation using the product id
 
     if(getEmail()!='') {
     email=getEmail();
@@ -221,8 +214,6 @@ function addToCart($id) {
 }
 
 function addToWishlist($id) {
-
-    //TODO complete implementation using the product id
 
     if(getEmail()!='') {
     email=getEmail()+2;

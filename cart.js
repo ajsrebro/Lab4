@@ -76,7 +76,6 @@ function applyCoupon() {
 
 function deleteItem($id) {
 
-    //TODO complete implementation using the product id
     $.ajax({
         url: Url + 'Cart/' + $id,
         type: 'delete',
@@ -94,7 +93,6 @@ function deleteItem($id) {
 
 function checkOut() {
 
-    //TODO complete implementation
     $.ajax({
         url: Url + 'Cart',
         type: 'put',
